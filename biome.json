@@ -1,0 +1,3 @@
+{
+  "extends": ["rocketseat-biomejs-config/react|node|next"]
+}
