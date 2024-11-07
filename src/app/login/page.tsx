@@ -1,8 +1,19 @@
-import { Button } from "@/_components/ui/button";
+import { Button } from "@/components/ui/button";
+import { SignUpButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { LogInIcon } from "lucide-react";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function LoginIcon() {
+export default async function Login() {
+  const { userId } = await auth();
+
+  console.log(userId);
+
+  if (userId) {
+    redirect("/");
+  }
+
   return (
     <div className="grid h-full grid-cols-2">
       <div className="mx-auto flex h-full max-w-[550px] flex-col justify-center p-8">
@@ -22,10 +33,12 @@ export default function LoginIcon() {
           facilitando o controle do seu orçamento.
         </p>
 
-        <Button variant="secondary" className="flex items-center">
-          <LogInIcon className="mr-2" />
-          Fazer login ou criar conta
-        </Button>
+        <SignUpButton>
+          <Button variant="outline" className="flex items-center">
+            <LogInIcon className="mr-2" />
+            Fazer login ou criar conta
+          </Button>
+        </SignUpButton>
       </div>
       <div className="relative h-full w-full">
         <Image src="/login.png" alt="login" fill className="object-cover" />
