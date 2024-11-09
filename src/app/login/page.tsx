@@ -1,7 +1,7 @@
+import { LoginIcon } from "@/components/login-icon";
 import { Button } from "@/components/ui/button";
 import { SignUpButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import { LogInIcon } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -35,7 +35,7 @@ export default async function Login() {
 
         <SignUpButton>
           <Button variant="outline" className="flex items-center">
-            <LogInIcon className="mr-2" />
+            <LoginIcon key="test" />
             Fazer login ou criar conta
           </Button>
         </SignUpButton>
