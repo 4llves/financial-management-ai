@@ -1,9 +1,7 @@
 import React, { forwardRef } from "react";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 
-import { Input } from "./ui/input";
-
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+import { Input, InputProps } from "./ui/input";
 
 export const MoneyInput = forwardRef(
   (
