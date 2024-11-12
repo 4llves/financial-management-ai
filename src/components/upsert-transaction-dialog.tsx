@@ -40,11 +40,12 @@ import {
   TRANSACTION_TYPE_OPTIONS,
 } from "@/app/consts/transactions";
 import { DatePicker } from "./date-picker";
-import { addTransaction } from "@/app/actions/add-transaction";
+import { upseartTransaction } from "@/app/actions/upseart-transaction";
 
 interface UpsertTransactionDialogProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  transactionId?: string;
   defaultValues?: FormSchema;
 }
 
@@ -75,6 +76,7 @@ export function UpsertTransactionDialog({
   isOpen,
   setIsOpen,
   defaultValues,
+  transactionId,
 }: UpsertTransactionDialogProps) {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -90,13 +92,15 @@ export function UpsertTransactionDialog({
 
   const onSubmit = async (data: FormSchema) => {
     try {
-      await addTransaction(data);
+      await upseartTransaction({ ...data, id: transactionId });
       setIsOpen(false);
       form.reset();
     } catch (err) {
       console.log(err);
     }
   };
+
+  const isUpdate = Boolean(transactionId);
 
   return (
     <Dialog
@@ -108,15 +112,11 @@ export function UpsertTransactionDialog({
         }
       }}
     >
-      {/* <DialogTrigger asChild>
-        <Button className="rounded-full font-bold">
-          Adiconar transação
-          <ArrowDownUp />
-        </Button>
-      </DialogTrigger> */}
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Adiconar transação</DialogTitle>
+          <DialogTitle>
+            {isUpdate ? "Atualizar" : "Criar"} transação
+          </DialogTitle>
           <DialogDescription>Insira as informações abaixo</DialogDescription>
         </DialogHeader>
 
@@ -264,7 +264,7 @@ export function UpsertTransactionDialog({
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">Adicionar</Button>
+              <Button type="submit">{isUpdate ? "Atualizar" : "Criar"}</Button>
             </DialogFooter>
           </form>
         </Form>

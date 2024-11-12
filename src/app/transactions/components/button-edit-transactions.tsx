@@ -33,6 +33,7 @@ export function ButtonEditTransaction({
           ...transaction,
           amount: Number(transaction.amount),
         }}
+        transactionId={transaction.id}
       />
     </>
   );
